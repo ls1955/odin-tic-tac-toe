@@ -9,3 +9,13 @@ const gameBoard = (function GameBoard() {
     }
     return {matrix}
 })()
+
+function PlayerFactory(name, symbol) {
+    return {
+        name,
+        symbol
+    }
+}
+
+let playerOne = PlayerFactory("player one", "X")
+let playerTwo = PlayerFactory("player two", "O")
