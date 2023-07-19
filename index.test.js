@@ -1,4 +1,4 @@
-const [GameBoard, PlayerFactory] = require("./index")
+const [GameBoard, PlayerFactory, TicTacToeGameController] = require("./index")
 
 test("GameBoard#getBoard should return an empty board at beginning", () => {
     let gameBoard = GameBoard()
@@ -35,3 +35,17 @@ test("PlayerFactory should return an object with name and symbol", () => {
     expect(playerTwo.name).toBe("player two")
     expect(playerTwo.symbol).toBe("O")
 })
+
+test("TicTacToeGameController could switch between active player after a round", () => {
+    let playerOne = PlayerFactory("player one", "X")
+    let playerTwo = PlayerFactory("player two", "O")
+    let controller = TicTacToeGameController(playerOne, playerTwo)
+
+    expect(controller.getActivePlayer()).toBe(playerOne)
+
+    controller.playRound(0, 0)
+
+    expect(controller.getActivePlayer()).toBe(playerTwo)
+})
+
+// Break the test into each pieces
