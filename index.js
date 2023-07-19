@@ -1,14 +1,28 @@
-const gameBoard = (function GameBoard() {
-    let matrix = []
+function GameBoard() {
+    let board = []
+    let rowLength = 3
+    let colLength = 3
 
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            matrix[i] ||= []
-            matrix[i][j] = " "
+    for (let i = 0; i < rowLength; i++) {
+        board[i] = []
+        for (let j = 0; j < colLength; j++) {
+            board[i][j] = " "
         }
     }
-    return {matrix}
-})()
+
+    function getBoard() {
+        return board
+    }
+
+    function markBoard(symbol, i, j) {
+        board[i][j] = symbol
+    }
+
+    return {
+        getBoard,
+        markBoard
+    }
+}
 
 function PlayerFactory(name, symbol) {
     return {
@@ -17,5 +31,4 @@ function PlayerFactory(name, symbol) {
     }
 }
 
-let playerOne = PlayerFactory("player one", "X")
-let playerTwo = PlayerFactory("player two", "O")
+module.exports = [GameBoard, PlayerFactory]
