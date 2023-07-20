@@ -123,7 +123,7 @@ function TicTacToeGameController(playerOne, playerTwo) {
     }
 
     return {
-        hasWinner,
+        winner,
         isTie,
         getActivePlayer,
         playRound,
