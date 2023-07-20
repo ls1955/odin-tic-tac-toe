@@ -31,7 +31,7 @@ function GameBoard() {
 
     function hasHorizontalWinningPattern(symbolOne, symbolTwo) {
         for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
-            const row = getBoard()[rowIndex]
+            const row = board[rowIndex]
 
             if (row.every(cell => cell === symbolOne) ||
                 row.every(cell => cell === symbolTwo)) {
@@ -46,7 +46,7 @@ function GameBoard() {
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                columns[j].push(getBoard()[i][j])
+                columns[j].push(board[i][j])
             }
         }
 
@@ -63,8 +63,8 @@ function GameBoard() {
         const diagonals = [[], []]
 
         for (let i = 0; i < 3; i++) {
-            diagonals[0].push(getBoard()[i][i])
-            diagonals[1].push(getBoard()[i][2 - i])
+            diagonals[0].push(board[i][i])
+            diagonals[1].push(board[i][2 - i])
         }
 
         for (let i = 0; i < diagonals.length; i++) {
@@ -91,6 +91,9 @@ function PlayerFactory(name, symbol) {
     }
 }
 
+// The game controller that is use to play a round.
+// Has some status to notify that the game has a winner,
+// or it is a tie
 function TicTacToeGameController(playerOne, playerTwo) {
     const players = [playerOne, playerTwo]
     const board = GameBoard()
@@ -98,7 +101,7 @@ function TicTacToeGameController(playerOne, playerTwo) {
     let winner = null
     let isTie = false
 
-    const playRound = (row_index, col_index) => {
+    function playRound(row_index, col_index) {
         console.log(`It is ${activePlayer.name}'s turn.`)
 
         board.markBoard(activePlayer.symbol, row_index, col_index)
@@ -116,9 +119,11 @@ function TicTacToeGameController(playerOne, playerTwo) {
         switchActivePlayer()
     }
 
-    const getActivePlayer = () => activePlayer
+    function getActivePlayer() {
+        return activePlayer
+    }
 
-    const switchActivePlayer = () => {
+    function switchActivePlayer() {
         activePlayer = activePlayer === players[0] ? players[1] : players[0] 
     }
 
@@ -131,4 +136,7 @@ function TicTacToeGameController(playerOne, playerTwo) {
     }
 }
 
-module.exports = [GameBoard, PlayerFactory, TicTacToeGameController]
+module.exports = [
+    GameBoard, PlayerFactory,
+    TicTacToeGameController
+]
