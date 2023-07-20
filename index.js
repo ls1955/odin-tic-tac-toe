@@ -18,9 +18,69 @@ function GameBoard() {
         board[i][j] = symbol
     }
 
+    function isFull() {
+        return getBoard().every(row => row.every(cell => cell != " "))
+    }
+
+    function hasWinningPattern(symbolOne, symbolTwo) {
+        return hasHorizontalWinningPattern(symbolOne, symbolTwo) ||
+                hasVerticalWinningPattern(symbolOne, symbolTwo) ||
+                hasDiagonalWinningPattern(symbolOne, symbolTwo) ||
+                false
+    }
+
+    function hasHorizontalWinningPattern(symbolOne, symbolTwo) {
+        for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+            const row = getBoard()[rowIndex]
+
+            if (row.every(cell => cell === symbolOne) ||
+                row.every(cell => cell === symbolTwo)) {
+                    return true
+                }
+        }
+        return false
+    }
+
+    function hasVerticalWinningPattern(symbolOne, symbolTwo) {
+        const columns = [[], [], []]
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                columns[j].push(getBoard()[i][j])
+            }
+        }
+
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].every(cell => cell === symbolOne) ||
+                columns[i].every(cell => cell === symbolTwo)) {
+                    return true
+            }
+        }
+        return false
+    }
+
+    function hasDiagonalWinningPattern(symbolOne, symbolTwo) {
+        const diagonals = [[], []]
+
+        for (let i = 0; i < 3; i++) {
+            diagonals[0].push(getBoard()[i][i])
+            diagonals[1].push(getBoard()[i][2 - i])
+        }
+
+        for (let i = 0; i < diagonals.length; i++) {
+            if (diagonals[i].every(cell => cell === symbolOne) ||
+                diagonals[i].every(cell => cell === symbolTwo)) {
+                    return true
+            }
+        }
+        return false
+    }
+
     return {
         getBoard,
-        markBoard
+        markBoard,
+        isFull,
+        hasWinningPattern
     }
 }
 
