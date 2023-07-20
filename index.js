@@ -95,13 +95,23 @@ function TicTacToeGameController(playerOne, playerTwo) {
     const players = [playerOne, playerTwo]
     const board = GameBoard()
     let activePlayer = players[0]
+    let winner = null
+    let isTie = false
 
     const playRound = (row_index, col_index) => {
         console.log(`It is ${activePlayer.name}'s turn.`)
 
         board.markBoard(activePlayer.symbol, row_index, col_index)
 
-        // TODO: What if there is a winner, or there is a tie?
+        if (board.hasWinningPattern(players[0].symbol, players[1].symbol)) {
+            winner = activePlayer
+            return
+        }
+
+        if (board.isFull()) {
+            isTie = true
+            return
+        }
 
         switchActivePlayer()
     }
@@ -113,6 +123,8 @@ function TicTacToeGameController(playerOne, playerTwo) {
     }
 
     return {
+        hasWinner,
+        isTie,
         getActivePlayer,
         playRound,
         getBoard: board.getBoard
