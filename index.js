@@ -99,11 +99,9 @@ function TicTacToeGameController(playerOne, playerTwo) {
     const board = GameBoard()
     let activePlayer = players[0]
     let winner = null
-    let isTie = false
+    let isTieFlag = false
 
     function playRound(row_index, col_index) {
-        console.log(`It is ${activePlayer.name}'s turn.`)
-
         board.markBoard(activePlayer.symbol, row_index, col_index)
 
         if (board.hasWinningPattern(players[0].symbol, players[1].symbol)) {
@@ -112,7 +110,7 @@ function TicTacToeGameController(playerOne, playerTwo) {
         }
 
         if (board.isFull()) {
-            isTie = true
+            isTieFlag = true
             return
         }
 
@@ -127,8 +125,16 @@ function TicTacToeGameController(playerOne, playerTwo) {
         activePlayer = activePlayer === players[0] ? players[1] : players[0] 
     }
 
+    function getWinner() {
+        return winner
+    }
+
+    function isTie() {
+        return isTieFlag
+    }
+
     return {
-        winner,
+        getWinner,
         isTie,
         getActivePlayer,
         playRound,
@@ -142,6 +148,36 @@ function TicTacToeConsoleController() {
     let playerOne = PlayerFactory("player one", "X")
     let playerTwo = PlayerFactory("player two", "O")
     let game = TicTacToeGameController(playerOne, playerTwo)
+    let rowInput = -1
+    let columnInput = -1
+
+    function play() {
+        while (true) {
+            console.log(`It is ${game.getActivePlayer().name}'s turn.`);
+            console.log(game.getBoard())
+
+            while (true) {
+                rowInput = Number(window.prompt("Please select a row."))
+                columnInput = Number(window.prompt("Please select a column."))
+
+                if (isValidInput(rowInput, columnInput)) break
+
+                window.alert("The input is invalid. It might be out of bound or is already taken. Please ensure the input is between 0 and 2.")
+            }
+
+            game.playRound(rowInput, columnInput)
+
+            if (game.getWinner() !== null) {
+                window.alert(`The winner is ${game.getActivePlayer().name}.`)
+                break
+            }
+
+            if (game.isTie()) {
+                window.alert("Looks like it is a tie.")
+                break
+            }
+        }
+    }
 
     function isValidInput(i, j) {
         if (![i, j].every(index => 0 <= index && index <= 2)) return false
@@ -150,6 +186,7 @@ function TicTacToeConsoleController() {
     }
 
     return {
+        play,
         isValidInput
     }
 }
