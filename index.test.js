@@ -1,4 +1,4 @@
-const [GameBoard, PlayerFactory, TicTacToeGameController] = require("./index")
+const [GameBoard, PlayerFactory, TicTacToeGameController, TicTacToeConsoleController] = require("./index")
 
 test("GameBoard#getBoard should return an empty board at beginning", () => {
     let board = GameBoard()
@@ -90,4 +90,11 @@ test("TicTacToeGameController could switch between active player after a round",
     controller.playRound(0, 0)
 
     expect(controller.getActivePlayer()).toBe(playerTwo)
+})
+
+test("TicTacToeConsoleController could identify if input is valid", () => {
+    let controller = TicTacToeConsoleController()
+
+    expect(controller.isValidInput(0, 0)).toEqual(true)
+    expect(controller.isValidInput(-10, -10)).toEqual(false)
 })

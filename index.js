@@ -136,7 +136,25 @@ function TicTacToeGameController(playerOne, playerTwo) {
     }
 }
 
+// The controller that handle the game inside the terminal
+function TicTacToeConsoleController() {
+    // Hardcode players info for now...
+    let playerOne = PlayerFactory("player one", "X")
+    let playerTwo = PlayerFactory("player two", "O")
+    let game = TicTacToeGameController(playerOne, playerTwo)
+
+    function isValidInput(i, j) {
+        if (![i, j].every(index => 0 <= index && index <= 2)) return false
+
+        return game.getBoard()[i][j] === " "
+    }
+
+    return {
+        isValidInput
+    }
+}
+
 module.exports = [
     GameBoard, PlayerFactory,
-    TicTacToeGameController
+    TicTacToeGameController, TicTacToeConsoleController
 ]
