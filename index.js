@@ -191,17 +191,28 @@ function TicTacToeConsoleController() {
     }
 }
 
+function TicTacToeWebPageController () {
+    let playerOne = PlayerFactory("player one", "X")
+    let playerTwo = PlayerFactory("player two", "O")
+    let game = TicTacToeGameController(playerOne, playerTwo)
+    const buttons = document.querySelectorAll("button")
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            let rowIndex = Math.floor(button.dataset.index / 3)
+            let colIndex = button.dataset.index % 3
+
+            button.textContent = game.getActivePlayer().symbol
+            game.playRound(rowIndex, colIndex)
+            button.disabled = true
+        })
+    })
+}
+
+let controller = TicTacToeWebPageController()
+
 // Uncomment below exports if test
 // module.exports = [
 //     GameBoard, PlayerFactory,
 //     TicTacToeGameController, TicTacToeConsoleController
 // ]
-
-const buttons = document.querySelectorAll("button")
-
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        let index = button.dataset.index
-        console.log(`I am at ${Math.floor(index / 3)}, ${index % 3}.`);
-    })
-})
