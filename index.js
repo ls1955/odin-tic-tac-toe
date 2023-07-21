@@ -191,7 +191,17 @@ function TicTacToeConsoleController() {
     }
 }
 
-module.exports = [
-    GameBoard, PlayerFactory,
-    TicTacToeGameController, TicTacToeConsoleController
-]
+// Uncomment below exports if test
+// module.exports = [
+//     GameBoard, PlayerFactory,
+//     TicTacToeGameController, TicTacToeConsoleController
+// ]
+
+const buttons = document.querySelectorAll("button")
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        let index = button.dataset.index
+        console.log(`I am at ${Math.floor(index / 3)}, ${index % 3}.`);
+    })
+})
