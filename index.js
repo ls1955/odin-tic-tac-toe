@@ -202,7 +202,7 @@ function TicTacToeWebPageController () {
         button.addEventListener("click", () => {
             let rowIndex = Math.floor(button.dataset.index / 3)
             let colIndex = button.dataset.index % 3
-            
+
             button.textContent = game.getActivePlayer().symbol
             game.playRound(rowIndex, colIndex)
 
