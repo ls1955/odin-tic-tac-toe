@@ -224,7 +224,7 @@ function TicTacToeWebPageController () {
     }
 }
 
-let controller = TicTacToeWebPageController()
+let webPageGameController = TicTacToeWebPageController()
 
 // Uncomment below exports if test
 // module.exports = [
