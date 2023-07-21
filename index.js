@@ -196,17 +196,32 @@ function TicTacToeWebPageController () {
     let playerTwo = PlayerFactory("player two", "O")
     let game = TicTacToeGameController(playerOne, playerTwo)
     const buttons = document.querySelectorAll("button")
+    const banner = document.querySelector("#banner")
 
     buttons.forEach(button => {
         button.addEventListener("click", () => {
             let rowIndex = Math.floor(button.dataset.index / 3)
             let colIndex = button.dataset.index % 3
-
+            
             button.textContent = game.getActivePlayer().symbol
             game.playRound(rowIndex, colIndex)
+
+            banner.textContent = `It is ${game.getActivePlayer().name}'s turn.`
             button.disabled = true
+
+            if (game.getWinner()) {
+                banner.textContent = `The winner is ${game.getWinner().name}`
+                disableAllButton()
+            } else if (game.isTie()) {
+                banner.textContent = `Looks like there is no winner`
+                disableAllButton()
+            }
         })
     })
+
+    function disableAllButton() {
+        buttons.forEach(button => button.disabled = true)
+    }
 }
 
 let controller = TicTacToeWebPageController()
