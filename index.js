@@ -222,12 +222,29 @@ function TicTacToeWebPageController () {
         })
     })
 
+    replayButton.addEventListener("click", () => {
+        reset()
+        replayButton.style.display = "none"
+    })
+
     function disableAllButton() {
         buttons.forEach(button => button.disabled = true)
     }
 
     function showReplayButton() {
         replayButton.style.display = "block"
+    }
+
+    function reset() {
+        game = TicTacToeGameController(playerOne, playerTwo)
+        resetButtons()
+    }
+
+    function resetButtons() {
+        buttons.forEach(button => {
+            button.textContent = ""
+            button.disabled = false
+        })
     }
 }
 
