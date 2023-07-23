@@ -195,8 +195,9 @@ function TicTacToeWebPageController () {
     let playerOne = PlayerFactory(prompt("Please enter player one name.", "player one"), "X")
     let playerTwo = PlayerFactory(prompt("Please enter player two name.", "player two"), "O")
     let game = TicTacToeGameController(playerOne, playerTwo)
-    const buttons = document.querySelectorAll("button")
+    const buttons = document.querySelectorAll(".gameboard-button")
     const banner = document.querySelector("#banner")
+    const replayButton = document.querySelector("#replay-button")
 
     buttons.forEach(button => {
         button.addEventListener("click", () => {
@@ -212,15 +213,21 @@ function TicTacToeWebPageController () {
             if (game.getWinner()) {
                 banner.textContent = `The winner is ${game.getWinner().name}`
                 disableAllButton()
+                showReplayButton()
             } else if (game.isTie()) {
                 banner.textContent = `Looks like there is no winner`
                 disableAllButton()
+                showReplayButton()
             }
         })
     })
 
     function disableAllButton() {
         buttons.forEach(button => button.disabled = true)
+    }
+
+    function showReplayButton() {
+        replayButton.style.display = "block"
     }
 }
 

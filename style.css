@@ -17,3 +17,7 @@ button {
 button:disabled {
     color: rgb(0, 0, 0);
 }
+
+#replay-button {
+    display: none;
+}
