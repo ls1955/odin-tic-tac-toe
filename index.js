@@ -192,8 +192,8 @@ function TicTacToeConsoleController() {
 }
 
 function TicTacToeWebPageController () {
-    let playerOne = PlayerFactory("player one", "X")
-    let playerTwo = PlayerFactory("player two", "O")
+    let playerOne = PlayerFactory(prompt("Please enter player one name.", "player one"), "X")
+    let playerTwo = PlayerFactory(prompt("Please enter player two name.", "player two"), "O")
     let game = TicTacToeGameController(playerOne, playerTwo)
     const buttons = document.querySelectorAll("button")
     const banner = document.querySelector("#banner")
